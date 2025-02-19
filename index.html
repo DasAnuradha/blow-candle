@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blow the Candle</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #ffe5b4;
+        }
+        .cake {
+            width: 200px;
+            height: 100px;
+            background: brown;
+            position: relative;
+            border-radius: 10px;
+        }
+        .candle {
+            width: 20px;
+            height: 50px;
+            background: red;
+            position: absolute;
+            top: -50px;
+            left: 90px;
+        }
+        .flame {
+            width: 15px;
+            height: 25px;
+            background: orange;
+            border-radius: 50%;
+            position: absolute;
+            top: -25px;
+            left: 2.5px;
+            animation: flicker 0.5s infinite alternate;
+        }
+        @keyframes flicker {
+            0% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0.8; transform: scale(1.1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="cake">
+        <div class="candle">
+            <div class="flame" id="flame"></div>
+        </div>
+    </div>
+    
+    <script>
+        window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        const recognition = new SpeechRecognition();
+        recognition.continuous = true;
+        recognition.lang = 'en-US';
+        recognition.start();
+        
+        recognition.onresult = function(event) {
+            const transcript = event.results[event.results.length - 1][0].transcript.toLowerCase();
+            if (transcript.includes('ffuuu')) {
+                document.getElementById('flame').style.display = 'none';
+            }
+        };
+    </script>
+</body>
+</html>
